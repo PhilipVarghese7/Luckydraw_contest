@@ -1,4 +1,5 @@
 from pathlib import Path
+import dj_database_url
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -52,12 +53,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'luckydraw.wsgi.application'
 
 # Database
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3'  # fallback for local development
+    )
 }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
