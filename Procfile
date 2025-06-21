@@ -1,1 +1,1 @@
-web: gunicorn Luckydraw_contest.wsgi
+web: gunicorn luckydraw.wsgi
