@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Thank You!</title>
+  <style>
+    body {
+      background: #0b1a2f;
+      color: #87cefa;
+      font-family: 'Merriweather', serif;
+      text-align: center;
+      padding: 50px;
+    }
+    .box {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 30px;
+      border-radius: 15px;
+      display: inline-block;
+      margin-top: 40px;
+    }
+    .token {
+      font-size: 1.8em;
+      color: #00bfff;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Thank you for participating!</h1>
+  <div class="box">
+    <p><strong>Name:</strong> {{ participant.name }}</p>
+    <p class="token">🎟️ Your Token Number: {{ participant.token_number }}</p>
+  </div>
+
+</body>
+</html>

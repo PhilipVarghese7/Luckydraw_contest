@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UNARV Entries</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Merriweather', serif;
+      background: linear-gradient(to bottom right, #0b1a2f, #0d274e);
+      color: #e0e8ff;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      color: #87cefa;
+    }
+
+    .welcome {
+      font-size: 1.5em;
+      color: #add8e6;
+      margin-bottom: 20px;
+    }
+
+    .poster {
+      width: 250px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(135, 206, 250, 0.5);
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 90%;
+      max-width: 600px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #87cefa;
+    }
+
+    th {
+      background-color: #0d335d;
+    }
+
+    td {
+      background-color: #0b1f3c;
+    }
+
+    .pick-winner-btn {
+      margin-top: 30px;
+      padding: 12px 24px;
+      background-color: #00bfff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1em;
+      font-weight: bold;
+      font-family: 'Merriweather', serif;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .pick-winner-btn:hover {
+      background-color: #009acd;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>UNARV LUCKY DRAW</h1>
+  <div class="welcome">Welcome to UNARV Kalamassery Lucky Draw!</div>
+  <img src="{% static 'images/poster.jpeg' %}" class="poster" alt="Event Poster">
+
+  <table>
+    <thead>
+      <tr>
+        <th>Token #</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in participants %}
+      <tr>
+        <td>{{ p.token_number }}</td>
+        <td>{{ p.name }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <form method="post" action="{% url 'pick_winner' %}">
+    {% csrf_token %}
+    <button type="submit" class="pick-winner-btn">🎯 PICK WINNER</button>
+  </form>
+
+</body>
+</html>

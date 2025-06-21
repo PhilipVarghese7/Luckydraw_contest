@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UNARV Lucky Draw Winner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Font: IBM Plex Sans is clean and formal -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 60px 20px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: linear-gradient(to bottom right, #001f3f, #003366);
+      color: #ffffff;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3.5em;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .winner-box {
+      display: none;
+      padding: 40px;
+      border-radius: 10px;
+      background-color: #002244;
+      margin-top: 30px;
+      animation: fadeIn 1s ease-out forwards;
+    }
+
+    .winner-name {
+      font-size: 3em;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #ffc107; /* Gold-like color */
+      margin-bottom: 10px;
+    }
+
+    .token {
+      font-size: 1.8em;
+      color: #cccccc;
+      margin-top: 5px;
+    }
+
+    .poster {
+      width: 200px;
+      border-radius: 10px;
+      margin-top: 40px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.1);
+    }
+
+    .wait-msg {
+      font-size: 1.5em;
+      font-weight: 600;
+      color: #bbbbbb;
+      margin-top: 40px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>UNARV LUCKY DRAW</h1>
+
+  {% if winner %}
+    <div class="wait-msg" id="wait-msg">Please wait, revealing the winner...</div>
+
+    <div class="winner-box" id="winner-box">
+      <div class="winner-name">{{ winner.name|upper }}</div>
+      <div class="token">Token #{{ winner.token_number }}</div>
+    </div>
+  {% else %}
+    <p>No winner has been selected yet.</p>
+  {% endif %}
+
+  <img src="{% static 'images/poster.jpeg' %}" class="poster" alt="Event Poster">
+
+  <script>
+    window.onload = function () {
+      setTimeout(function () {
+        document.getElementById('wait-msg').style.display = 'none';
+        document.getElementById('winner-box').style.display = 'block';
+      }, 5000);
+    }
+  </script>
+
+</body>
+</html>
