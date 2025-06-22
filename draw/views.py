@@ -22,13 +22,12 @@ def register(request):
         form = ParticipantForm()
     return render(request, 'register.html', {'form': form})
 
-def create_admin_user():
-    User = get_user_model()
+def create_admin_user(request):
     if not User.objects.filter(username='admin').exists():
-        User.objects.create_superuser('admin', 'admin@example.com', 'yourpassword')
-        print("✅ Superuser created!")
+        User.objects.create_superuser('admin', 'admin@example.com', 'adminpassword123')
+        return HttpResponse("Admin user created.")
     else:
-        print("⚠️ Superuser already exists.")
+        return HttpResponse("Admin user already exists.")
 
 @login_required
 def view_entries(request):
