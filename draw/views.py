@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import ParticipantForm
 from .models import Participant
 import random
+from django.contrib.auth import get_user_model
 
 
 def register(request):
@@ -20,6 +21,14 @@ def register(request):
     else:
         form = ParticipantForm()
     return render(request, 'register.html', {'form': form})
+
+def create_admin_user():
+    User = get_user_model()
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'admin@example.com', 'yourpassword')
+        print("✅ Superuser created!")
+    else:
+        print("⚠️ Superuser already exists.")
 
 @login_required
 def view_entries(request):
@@ -41,3 +50,7 @@ def pick_winner(request):
 def show_winner(request):
     winner = Participant.objects.filter(is_winner=True).first()
     return render(request, "winner.html", {"winner": winner})
+
+
+
+
