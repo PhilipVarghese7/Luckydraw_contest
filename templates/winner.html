@@ -6,7 +6,7 @@
   <title>UNARV Lucky Draw Winner</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Font: IBM Plex Sans is clean and formal -->
+  <!-- Font: IBM Plex Sans -->
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -38,8 +38,14 @@
       font-size: 3em;
       font-weight: 700;
       text-transform: uppercase;
-      color: #ffc107; /* Gold-like color */
+      color: #ffc107;
       margin-bottom: 10px;
+    }
+
+    .parish {
+      font-size: 1.5em;
+      color: #87cefa;
+      margin-bottom: 8px;
     }
 
     .token {
@@ -72,27 +78,42 @@
 
   <h1>UNARV LUCKY DRAW</h1>
 
-  {% if winner %}
-    <div class="wait-msg" id="wait-msg">Please wait, revealing the winner...</div>
+  {% if winners %}
+    <div class="wait-msg" id="wait-msg">Please wait, revealing the winners...</div>
 
-    <div class="winner-box" id="winner-box">
-      <div class="winner-name">{{ winner.name|upper }}</div>
-      <div class="token">Token #{{ winner.token_number }}</div>
-    </div>
+    {% for winner in winners %}
+      <div class="winner-box" id="winner-box-{{ forloop.counter }}">
+        <div class="winner-name">{{ winner.name|upper }}</div>
+        <div class="parish">{{ winner.home_parish|upper}}</div>
+        <div class="token">Token #{{ winner.token_number }}</div>
+      </div>
+    {% endfor %}
   {% else %}
-    <p>No winner has been selected yet.</p>
+    <p>No winners have been selected yet.</p>
   {% endif %}
 
   <img src="{% static 'images/poster.jpeg' %}" class="poster" alt="Event Poster">
+<script>
+  window.onload = function () {
+    const waitMsg = document.getElementById('wait-msg');
+    const winnerBoxes = document.querySelectorAll('.winner-box');
 
-  <script>
-    window.onload = function () {
+    if (winnerBoxes.length > 0 && waitMsg) {
       setTimeout(function () {
-        document.getElementById('wait-msg').style.display = 'none';
-        document.getElementById('winner-box').style.display = 'block';
-      }, 5000);
+        waitMsg.style.display = 'none';
+
+        winnerBoxes.forEach((box, index) => {
+          setTimeout(() => {
+            box.style.display = 'block';
+            box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, index * 2500); // 2 second delay
+        });
+
+      }, 3500); // Initial wait
     }
-  </script>
+  }
+</script>
+
 
 </body>
 </html>

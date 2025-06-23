@@ -10,22 +10,33 @@
   <style>
     body {
       margin: 0;
-      padding: 20px;
-      font-family: 'Merriweather', serif;
-      background: linear-gradient(to bottom right, #0b1a2f, #0d274e);
-      color: #e0e8ff;
+      padding: 0px 20px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: linear-gradient(to bottom right, #001f3f, #003366);
+      color: #ffffff;
       text-align: center;
     }
 
+    .smyk-box {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #87cefa;
+      padding: 15px 30px;
+      font-size: 2em;
+      font-weight: bold;
+      border-radius: 0 0 15px 15px;
+      box-shadow: 0 4px 8px rgba(135, 206, 250, 0.2);
+      margin-bottom: 30px;
+    }
+
     h1 {
-      font-size: 2.8em;
+      font-size: 3.9em;
       color: #87cefa;
     }
 
     .welcome {
-      font-size: 1.5em;
-      color: #add8e6;
-      margin-bottom: 20px;
+      font-size: 1.9em;
+      color: rgb(214, 233, 239);
+      margin-bottom: 35px;
     }
 
     .poster {
@@ -36,8 +47,8 @@
     }
 
     table {
-      width: 90%;
-      max-width: 600px;
+      width: 70%;
+      max-width: 500px;
       margin: 0 auto;
       border-collapse: collapse;
       background: rgba(255, 255, 255, 0.05);
@@ -59,8 +70,8 @@
     .pick-winner-btn {
       margin-top: 30px;
       padding: 12px 24px;
-      background-color: #00bfff;
-      color: white;
+      background-color: #f9f9f9;
+      color: rgb(2, 8, 3);
       border: none;
       border-radius: 6px;
       font-size: 1.1em;
@@ -78,8 +89,10 @@
 </head>
 <body>
 
+  <div class="smyk-box"></div>
+
   <h1>UNARV LUCKY DRAW</h1>
-  <div class="welcome">Welcome to UNARV Kalamassery Lucky Draw!</div>
+  <div class="welcome"><b>WELCOME TO UNARV KALAMASSERY LUCKY DRAW!</b></div>
   <img src="{% static 'images/poster.jpeg' %}" class="poster" alt="Event Poster">
 
   <table>
@@ -101,7 +114,7 @@
 
   <form method="post" action="{% url 'pick_winner' %}">
     {% csrf_token %}
-    <button type="submit" class="pick-winner-btn">🎯 PICK WINNER</button>
+    <button type="submit" class="pick-winner-btn">🎯 PICK WINNERS</button>
   </form>
 
 </body>

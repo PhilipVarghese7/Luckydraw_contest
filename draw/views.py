@@ -6,6 +6,10 @@ import random
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.http import HttpResponse
+from django.contrib.auth.models import User
+from django.http import HttpResponse
+from django.contrib.auth import get_user_model
+
 
 def register(request):
     if request.method == 'POST':
@@ -38,19 +42,29 @@ def view_entries(request):
 @login_required
 def pick_winner(request):
     participants = list(Participant.objects.all())
-    if participants:
-        # Reset previous winner
+    if len(participants) >= 5:
         Participant.objects.update(is_winner=False)
-        winner = random.choice(participants)
-        winner.is_winner = True
-        winner.save()
+        winners = random.sample(participants, 5)
+        for winner in winners:
+            winner.is_winner = True
+            winner.save()
     return redirect("show_winner")
+
 
 @login_required
 def show_winner(request):
     winner = Participant.objects.filter(is_winner=True).first()
     return render(request, "winner.html", {"winner": winner})
+    winners = Participant.objects.filter(is_winner=True)
+    return render(request, "winner.html", {"winners": winners})
 
 
 
 
+
+def create_admin_user(request):
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'admin@example.com', 'adminpassword123')
+        return HttpResponse("Admin user created.")
+    else:
+        return HttpResponse("Admin user already exists.")

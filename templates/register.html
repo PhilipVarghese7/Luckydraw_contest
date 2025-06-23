@@ -80,12 +80,22 @@
   <img src="{% static 'images/poster.jpeg' %}" alt="UNARV Poster" class="poster">
 
   <div class="form-container">
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input type="submit" value="Get Token">
-    </form>
-  </div>
+  <form method="post">
+    {% csrf_token %}
+
+    <label for="{{ form.name.id_for_label }}">Name</label>
+    {{ form.name }}
+
+    <label for="{{ form.phone_number.id_for_label }}">Phone Number</label>
+    {{ form.phone_number }}
+
+    <label for="{{ form.home_parish.id_for_label }}">Home Parish</label>
+    {{ form.home_parish }}
+
+    <input type="submit" value="Get Token">
+  </form>
+</div>
+
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import create_admin_user
 from . import views
+from .views import create_admin_user
 
 urlpatterns = [
     path('', views.register, name='register'),  # 👈 form shown on home
